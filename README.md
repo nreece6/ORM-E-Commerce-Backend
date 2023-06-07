@@ -59,6 +59,7 @@ Video example of usage once database has been created and seeded available at:
 https://drive.google.com/file/d/1QtURkXapdvdzJBgWolpyRNfE29YHbh5e/view  
 
 Run the program in the terminal using 
+
 ```
 node server.js
 ```
