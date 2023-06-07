@@ -43,7 +43,7 @@ Open the application in Insomnia using the route localhost:3001/api/? where ? is
 
 You must have node.js, the express package, the mysql2 package, and the sequilize package installed to run this application.
 
-SQL credentials have been witheld. Run MySQL, source the schema 
+SQL credentials have been witheld. Create a .env pointing to your own SQL credentials. Run MySQL, source the schema 
 
 ```
 source db/schema.sql
@@ -54,7 +54,7 @@ and seed the tables
 npm run seed
 ```
 
-Video example of usage available at:
+Video example of usage once database has been created and seeded available at:
 
 https://drive.google.com/file/d/1QtURkXapdvdzJBgWolpyRNfE29YHbh5e/view  
 
