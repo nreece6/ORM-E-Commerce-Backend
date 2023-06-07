@@ -46,7 +46,11 @@ router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   try {
     const updatedCategory = await Category.update(req.body, { where: {id: req.params.id} })
-    !updatedCategory ? res.status(404).json({ message: 'ID Not Found' }) : res.status(200).json(updatedCategory)
+    if(!updatedCategory) {
+       res.status(404).json({ message: 'ID Not Found' }) 
+       return
+     }
+    res.status(200).json(updatedCategory)
   }
   catch (err) {
     res.status(500).json({message: 'Server Error'})
@@ -57,7 +61,11 @@ router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
   try {
     const deletedCategory = await Category.destroy(req.params.id)
-    !deletedCategory ? res.status(404).json({ message: 'ID Not Found' }) : res.status(200).json(deletedCategory)
+    if(!deletedCategory) {
+      res.status(404).json({ message: 'ID Not Found' })
+      return
+    }
+   res.status(200).json(deletedCategory)
   }
   catch (err) {
     res.status(500).json({message: 'Server Error'})

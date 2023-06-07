@@ -23,7 +23,9 @@ router.get('/:id', async (req, res) => {
     const product = await Product.findByPk(req.params.id, { include: [{ model: Category }, { model: Tag }] })
     if(!product) {
       res.status(404).json({ message: 'Product Not Found' })
+      return
     }
+    res.status(200).json(product)
   }
   catch (err) {
     res.status(500).json({message: 'Server Error'})
@@ -108,7 +110,11 @@ router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
   try {
     const deletedProduct = await Product.destroy({ where: { id: req.params.id} })
-    !deleted ? res.status(404).json({ message: 'Product Not Found' }) : res.status(200).json(deletedProduct)
+    if(!deletedProduct) {
+      res.status(404).json({ message: 'Product Not Found' })
+      return
+    }
+   res.status(200).json({ message: 'Product Successfully Deleted' })
   }
   catch (err) {
     res.status(500).json({message: 'Server Error'})

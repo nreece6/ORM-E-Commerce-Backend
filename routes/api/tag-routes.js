@@ -21,7 +21,9 @@ router.get('/:id', async (req, res) => {
     const tag = await Tag.findByPk(req.params.id, {include: [{ model: Product }] })
     if(!tag) {
       res.status(404).json({ message: 'Tag Not Found' })
+      return
     }
+    res.status(200).json(tag)
   } 
   catch (err) {
     res.status(500).json({message: 'Server Error'})
@@ -43,7 +45,11 @@ router.put('/:id', async (req, res) => {
   // update a tag's name by its `id` value
   try {
     const updatedTag = await Tag.update(req.body, {where: { id: req.params.id } })
-    !updatedTag ? res.status(404).json({ message: 'Tag Not Found'}) : res.status(200).json(updatedTag)
+    if(!updatedTag) {
+       res.status(404).json({ message: 'Tag Not Found'}) 
+       return
+    }
+    res.status(200).json(updatedTag)
   }
   catch (err) {
     res.status(500).json({message: 'Server Error'})
@@ -54,8 +60,12 @@ router.delete('/:id', async (req, res) => {
   // delete on tag by its `id` value
   try {
     const deletedTag = await Tag.destroy(req.params.id)
-    !deletedTag ? res.status(404).json({ message: 'Tag Not Found' }) : res.status(200).json(deletedTag)
+    if(deletedTag) {
+       res.status(404).json({ message: 'Tag Not Found' })  
+       return
     }
+    res.status(200).json(deletedTag)
+  }
     catch (err) {
       res.status(500).json({message: 'Server Error'})
     }
